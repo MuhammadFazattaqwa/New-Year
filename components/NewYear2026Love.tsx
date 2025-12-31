@@ -647,7 +647,7 @@ export default function NewYear2026Love({ initialNow }: NewYear2026LoveProps) {
             exit={{ opacity: 0, y: 10, filter: "blur(10px)" }}
             className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 backdrop-blur"
           >
-            🎉 Kamu sudah masuk ke 2026 dengan penuh cinta! 🎉
+            🎉 Happt Newr Year Sayangku 🎉
           </motion.div>
         )}
       </AnimatePresence>
