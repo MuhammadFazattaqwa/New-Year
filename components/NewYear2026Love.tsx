@@ -71,9 +71,41 @@ function getCountdown(nowMs: number): Countdown {
   return { days, hours, minutes, seconds, done, year: targetYear };
 }
 
+function isLowPowerDevice() {
+  if (typeof window === "undefined") return true;
+  const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const smallScreen = window.innerWidth < 640;
+  const lowCores =
+    typeof navigator !== "undefined" &&
+    "hardwareConcurrency" in navigator &&
+    navigator.hardwareConcurrency <= 4;
+  return Boolean(prefersReduced || smallScreen || lowCores);
+}
+
 function fireworks(ms = 4200) {
-  const end = Date.now() + ms;
   const colors = ["#f7d774", "#ff6b9a", "#8fd3ff", "#7be495", "#c9a3ff"];
+  const lowPower = isLowPowerDevice();
+
+  if (lowPower) {
+    const bursts = 2;
+    for (let i = 0; i < bursts; i += 1) {
+      setTimeout(() => {
+        confetti({
+          particleCount: 28,
+          spread: 90,
+          startVelocity: 32,
+          ticks: 160,
+          gravity: 1.15,
+          scalar: 0.9,
+          colors,
+          origin: { x: 0.5, y: 0.75 },
+        });
+      }, i * 220);
+    }
+    return;
+  }
+
+  const end = Date.now() + ms;
   const defaults = {
     startVelocity: 42,
     spread: 80,
